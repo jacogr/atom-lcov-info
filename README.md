@@ -26,4 +26,6 @@ Run your tests, generate a `coverage/lcov.info` file, toggle the coverage plugin
 
 ### Where
 
-Pull requests, issues, feature requests are all welcome and encouraged via [https://github.com/jacogr/atom-lcov-info](https://github.com/jacogr/atom-lcov-info)
+The Atom package can be found on the Atom registry, [https://atom.io/packages/lcov-info](https://atom.io/packages/lcov-info).
+
+Pull requests, issues, feature requests are all welcome and encouraged via [https://github.com/jacogr/atom-lcov-info](https://github.com/jacogr/atom-lcov-info). 
