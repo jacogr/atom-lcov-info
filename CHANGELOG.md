@@ -1,3 +1,9 @@
+## :0.6.0
+
+- Split all the lcov.info handling into own file, [lib/coverage-lcov.coffee](lib/coverage-lcov.coffee), keeping [lib/lcov-info-view.coffee](lcov-info-view.coffee) to deal with what it does best - managing the view
+
+... now it really does become much easier to test, pondering how to extract coverage info to eat own dogfood on this specific project (not the other unrelated ones that lead to this plugin) ...
+
 ## 06 Dec 2104: 0.5.1
 
 - Typo resulted in incorrect handling (error thrown) when the path started with `./` in the `lcon.info` file
