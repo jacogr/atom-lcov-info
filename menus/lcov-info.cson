@@ -1,0 +1,22 @@
+# See https://atom.io/docs/latest/creating-a-package#menus for more details
+'context-menu':
+  'atom-text-editor': [
+    {
+      'label': 'Toggle lcov-info'
+      'command': 'lcov-info:toggle'
+    }
+  ]
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'lcov-info'
+      'submenu': [
+        {
+          'label': 'Toggle'
+          'command': 'lcov-info:toggle'
+        }
+      ]
+    ]
+  }
+]

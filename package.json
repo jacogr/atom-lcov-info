@@ -1,0 +1,18 @@
+{
+  "name": "lcov-info",
+  "main": "./lib/lcov-info",
+  "version": "0.1.0",
+  "description": "Hightlight coverage based on information from lconv.info",
+  "activationCommands": {
+    "atom-workspace": "lcov-info:toggle"
+  },
+  "author": "Jaco Greeff <jacogr@gmail.com>",
+  "repository": "https://github.com/jacogr/lcov-info",
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {
+    "lcov-parse": "0.0.8"
+  }
+}
