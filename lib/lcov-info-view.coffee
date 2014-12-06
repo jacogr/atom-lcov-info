@@ -1,7 +1,6 @@
-fs = require 'fs'
-path = require 'path'
 {Range,View} = require 'atom'
-parse = require 'lcov-parse'
+
+coverage = require './coverage-lcov'
 
 CMD_TOGGLE = 'lcov-info:toggle'
 EVT_SWITCH = 'pane-container:active-pane-item-changed'
@@ -58,9 +57,8 @@ class LcovInfoView extends View
     return unless editor
 
     editors[editor.id] or= {decorations: [], coverage:0}
-    if editors[editor.id].decorations.length
-      for decoration in editors[editor.id].decorations
-        decoration.destroy()
+    for decoration in editors[editor.id].decorations
+      decoration.destroy()
 
     editors[editor.id].decorations = []
 
@@ -70,67 +68,14 @@ class LcovInfoView extends View
 
     @removeCovInfo(editor)
 
-    filePath = editor.buffer.file.path
-    infoFilePath = @findLCovInfoFile(filePath)
+    coverage editor.buffer.file.path, (cover) =>
+      return unless cover
 
-    unless infoFilePath
-      console.log 'LcovInfoView: No coverage/lcov.info file found for', filePath
-      return
-
-    fileParts = filePath.replace(/\\/g, '/').split('/')
-    matchPath = (lcovData) ->
-      lp = lcovData.file.replace(/\\/g, '/').split('/')
-
-      return null unless lp.length <= fileParts.length
-
-      for i in [1..lp.length] by 1
-        unless i is 0 and lcovParts[0] is '.'
-          if lp[lp.length - i] isnt fileParts[fileParts.length - i]
-            return null
-
-      return lcovData
-
-    parse infoFilePath, (err, data) =>
-      if err
-        console.error 'LcovinfoView:', err
-        return
-
-      fileData = null
-      for fileInfo in data when not fileData
-        fileData = matchPath fileInfo
-
-      unless fileData
-        console.log 'LcovInfoView: No coverage info found for', filePath
-        return
-
-      total = 0
-      covered = 0
-
-      fileData.lines.details.forEach (detail) ->
-        range = [[detail.line - 1, 0], [detail.line - 1, 0]]
-        marker = editor.markBufferRange(range, invalidate: 'touch')
-
-        total++
-        klass = 'lcov-info-no-coverage'
-        if detail.hit > 0
-          klass = 'lcov-info-has-coverage'
-          covered++
-
+      for line in cover.lines
+        marker = editor.markBufferRange(line.range, invalidate: 'touch')
         decoration = editor.decorateMarker marker,
-          class: klass, type: 'line'#'gutter'
+          class: line.klass, type: 'line'#'gutter'
         editors[editor.id].decorations.push decoration
 
-      editors[editor.id].coverage = (if total then covered/total else 0)*100
+      editors[editor.id].coverage = cover.coverage
       @updateStatus(editor)
-
-  findLCovInfoFile: (filePath) ->
-    while filePath and filePath != path.dirname(filePath)
-      filename = path.join(filePath, 'coverage', 'lcov.info')
-
-      if fs.existsSync(filename)
-        console.log('LcovInfoView: Using info at', filename)
-        return filename
-
-      filePath = path.dirname(filePath)
-
-    return null
