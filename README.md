@@ -26,4 +26,4 @@ Run your tests, generate a `coverage/lcov.info` file, toggle the coverage plugin
 
 ### Where
 
-Pull requests, issues, feature requests are all welcome and encouraged via [https://github.com/jacogr/lcov-info](https://github.com/jacogr/lcov-info)
+Pull requests, issues, feature requests are all welcome and encouraged via [https://github.com/jacogr/atom-lcov-info](https://github.com/jacogr/atom-lcov-info)
