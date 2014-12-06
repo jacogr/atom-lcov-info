@@ -1,4 +1,4 @@
-## 0.1.0 07 Dec 2014
+## 0.1.0 06 Dec 2014
 
 - Initial version & first Atom package registry entry
 - Mangled beyond recognition using [https://github.com/benjamine/highlight-cov](https://github.com/benjamine/highlight-cov) as a starting point

@@ -7,7 +7,7 @@
     "atom-workspace": "lcov-info:toggle"
   },
   "author": "Jaco Greeff <jacogr@gmail.com>",
-  "repository": "https://github.com/jacogr/lcov-info",
+  "repository": "https://github.com/jacogr/atom-lcov-info",
   "license": "MIT",
   "engines": {
     "atom": ">0.50.0"
