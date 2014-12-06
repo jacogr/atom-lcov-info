@@ -1,4 +1,10 @@
-## 0.5.0 06 Dec 2014
+## 06 Dec 2104: 0.5.1
+
+- Typo resulted in incorrect handling (error thrown) when the path started with `./` in the `lcon.info` file
+
+... getting back to the flippant test coverage comment on this project ...
+
+## 06 Dec 2014: 0.5.0
 
 - Initial version & first Atom package registry entry
 - Mangled beyond recognition using [https://github.com/benjamine/highlight-cov](https://github.com/benjamine/highlight-cov) as a starting point

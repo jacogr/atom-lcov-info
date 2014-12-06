@@ -77,15 +77,15 @@ class LcovInfoView extends View
       console.log 'LcovInfoView: No coverage/lcov.info file found for', filePath
       return
 
-    fileParts = filePath.replace(/\\/g, '/').split('/')
+    fp = filePath.replace(/\\/g, '/').split('/')
     matchPath = (lcovData) ->
       lp = lcovData.file.replace(/\\/g, '/').split('/')
 
-      return null unless lp.length <= fileParts.length
+      return null unless lp.length <= fp.length
 
       for i in [1..lp.length] by 1
-        unless i is 0 and lcovParts[0] is '.'
-          if lp[lp.length - i] isnt fileParts[fileParts.length - i]
+        unless i is 0 and lp[0] is '.'
+          if lp[lp.length - i] isnt fp[fp.length - i]
             return null
 
       return lcovData

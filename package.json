@@ -2,7 +2,7 @@
   "name": "lcov-info",
   "main": "./lib/lcov-info",
   "version": "0.5.0",
-  "description": "Hightlight coverage based on information from lconv.info",
+  "description": "Coverage highlight & percentage based on information contained in lconv.info found in project path",
   "activationCommands": {
     "atom-workspace": "lcov-info:toggle"
   },
