@@ -2,7 +2,7 @@
 
 ### What
 
-Displays code coverage information inside Atom based on the information contained in in an LCOV formatted file.
+Displays code coverage information inside Atom based from information contained in an LCOV formatted file.
 
 Using the current open file as a starting point, it traverses up the tree until the `coverage/lcov.info` file is found. As an example, while editing `/Users/joe/Projects/xyz/src/client/test.coffee` coverage information could be pulled from either `/Users/joe/Projects/xyz/src/coverage/lcov.info` or `/Users/joe/Projects/xyz/coverage/lcov.info`. (First match as found.)
 
