@@ -1,3 +1,12 @@
+## :0.6.0
+
+- Split all the lcov.info handling into [lib/coverage-lcov.coffee](lib/coverage-lcov.coffee), keeping [lib/lcov-info-view.coffee](lcov-info-view.coffee) to deal with what it does best - managing the view
+- Add link to the actual Atom package in [README.md](README.md), available via [https://atom.io/packages/lcov-info](https://atom.io/packages/lcov-info)
+- Add first screenshot, helps when you can see it in action before installation
+- Highlights can now be toggled to either show on the line (default) or the gutter (less obtrusive)
+
+... now it really does become much easier to test, pondering how to extract coverage info to eat own dogfood on this specific project (not the other unrelated ones that lead to this plugin) ...
+
 ## 06 Dec 2104: 0.5.1
 
 - Typo resulted in incorrect handling (error thrown) when the path started with `./` in the `lcon.info` file
