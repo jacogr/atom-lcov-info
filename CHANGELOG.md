@@ -1,7 +1,10 @@
 ## 0.8.0
 
 - Add overlay panel that shows the full project coverage information
-- Project overview mangled beyond recognition from [https://github.com/philipgiuliani/coverage/](https://github.com/philipgiuliani/coverage/)
+- Project overview panel mangled beyond recognition from [https://github.com/philipgiuliani/coverage/](https://github.com/philipgiuliani/coverage/)
+- Once again, screenshots updated to reflect the new UI
+
+... not prefect, but getting closer to a local at-the-moment view of the brilliant [coveralls.io](https://coveralls.io) ...
 
 ## 0.7.0
 
