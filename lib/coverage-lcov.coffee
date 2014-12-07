@@ -3,6 +3,7 @@ parse = require 'lcov-parse'
 path = require 'path'
 
 cache = {}
+lcovData = null
 
 splitPath = (filePath) ->
   return filePath.replace(/\\/g, '/').split('/')
@@ -15,12 +16,13 @@ getCache = (lcovPath) ->
 
   return
 
-setCache = (lcovPath, lcovData) ->
+setCache = (lcovPath, data) ->
   total = 0
   covered = 0
+  hit = 0
   files = []
 
-  for fileInfo in lcovData
+  for fileInfo in data
     files.push fdata =
       name: fileInfo.file
       parts: splitPath(fileInfo.file)
@@ -28,6 +30,7 @@ setCache = (lcovPath, lcovData) ->
 
     ftotal = 0
     fcovered = 0
+    fhit = 0
 
     for detail in fileInfo.lines.details
       ftotal++
@@ -41,22 +44,27 @@ setCache = (lcovPath, lcovData) ->
       if line.hit > 0
         line.klass = 'lcov-info-has-coverage'
         fcovered++
+        fhit += line.hit
 
       fdata.total = ftotal
       fdata.covered = fcovered
 
     fdata.coverage = (if ftotal then fcovered/ftotal else 0)*100
+    fdata.hit = fhit
     total += ftotal
     covered += fcovered
+    hit += fhit
 
   cov = (if total then covered/total else 0) * 100
   console.log 'LcovInfoView:', "#{cov.toFixed(2)}% over #{files.length} files"
 
   return cache[lcovPath] =
+    name: lcovPath
     files: files
     total: total
     covered: covered
     coverage: cov
+    hit: hit
     mtime: fs.statSync(lcovPath).mtime.getTime()
 
 findInfoFile = (filePath) ->
@@ -92,19 +100,27 @@ mapInfo = (filePath, data, cb) ->
   console.log 'LcovInfoView: No coverage info found for', filePath
   return cb()
 
-module.exports = (filePath, cb) ->
+getCoverage = (filePath, cb) ->
   unless infoFile = findInfoFile(filePath)
     return cb()
 
-  if cacheData = getCache(infoFile)
-    return mapInfo(filePath, cacheData, cb)
+  if lcovData = getCache(infoFile)
+    return mapInfo(filePath, lcovData, cb)
 
   parse infoFile, (err, data) ->
     if err
       console.error 'LcovinfoView:', err
       return cb()
 
-    cacheData = setCache(infoFile, data)
-    mapInfo(filePath, cacheData, cb)
+    lcovData = setCache(infoFile, data)
+    mapInfo(filePath, lcovData, cb)
 
   return
+
+getLcov = ->
+  console.log lcovData
+  return lcovData
+
+module.exports =
+  getCoverage: getCoverage
+  getLcov: getLcov

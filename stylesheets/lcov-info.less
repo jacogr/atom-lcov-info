@@ -4,14 +4,131 @@
 // for a full listing of what's available.
 @import "ui-variables";
 
+@lcov-col-green: rgba(0, 255, 0, 0.2);
+@lcov-bdr-green: rgba(0, 255, 0, 0.8);
+@lcov-bar-green: rgba(0, 255, 0, 0.5);
+
+@lcov-col-red: rgba(255, 0, 0, 0.2);
+@lcov-bdr-red: rgba(255, 0, 0, 0.8);
+@lcov-bar-red: rgba(255, 0, 0, 0.5);
+
+@lcov-col-orange: rgba(255, 153, 0, 0.2);
+@lcov-bdr-orange: rgba(255, 153, 0, 0.8);
+@lcov-bar-orange: rgba(255, 153, 0, 0.5);
+
 .lcov-info-no-coverage {
-  background: rgba(255, 0, 0, 0.2);
-  border: 1px solid rgba(255,0,0,0.8);
+  background: @lcov-col-red;
+  border: 1px solid @lcov-bdr-red;
   border-radius: 1px;
 }
 
 .lcov-info-has-coverage {
-  background: rgba(0, 255, 0, 0.2);
-  border: 1px solid rgba(0,255,0,0.8);
+  background: @lcov-col-green;
+  border: 1px solid @lcov-bdr-green;
   border-radius: 1px;
+}
+
+.lcov-info-panel {
+  cursor: default;
+
+  // remove padding around the table
+  .panel-body { padding: 0 }
+
+  // style the table
+  table {
+    width: 100%;
+
+    thead, tbody {
+      width: 100%;
+      display: block;
+    }
+
+    tr {
+      width: 100%;
+
+      &::after {
+        content: " ";
+        display: block;
+        visibility: hidden;
+        clear: both;
+      }
+    }
+
+    th, td {
+      width: 10%;
+
+      &:nth-child(1) { width: 50% }
+      &:nth-child(2) { width: 20% }
+    }
+
+    thead {
+      padding: 0;
+
+      th {
+        padding: 10px;
+
+        // sortable
+        &.sort-header {
+          cursor: pointer;
+
+          &:after {
+            content: "";
+            float: right;
+            margin-top: 4px;
+            border-width: 0 4px 4px;
+            border-style: solid;
+            border-color: #868686 transparent;
+            visibility: hidden;
+          }
+
+          &:hover:after, &.sort-up:after, &.sort-down:after {
+            visibility: visible;
+          }
+
+          &.sort-up:after {
+            border-bottom: none;
+            border-width: 4px 4px 0;
+          }
+        }
+      }
+    }
+
+    tbody {
+      max-height: 160px;
+      overflow-x: hidden;
+      overflow-y: auto;
+
+      tr {
+        background: @base-background-color;
+        border-bottom: 1px solid @tool-panel-background-color;
+
+        td {
+          padding: 7px 10px;
+
+          &:first-child > span { cursor: pointer }
+        }
+      }
+    }
+  }
+
+  // progress bar styles
+  progress {
+    width: 100%;
+
+    &.green::-webkit-progress-value { background-color: @lcov-bar-green; border: 1px solid @lcov-bdr-green }
+    &.red::-webkit-progress-value { background-color: @lcov-bar-red; border: 1px solid @lcov-bdr-red }
+    &.orange::-webkit-progress-value { background-color: @lcov-bar-orange; border: 1px solid @lcov-bdr-orange }
+  }
+}
+
+.lcov-info-status {
+  cursor: pointer;
+
+  .icon {
+    margin-right: 3px;
+
+    &.red { color: @background-color-error }
+    &.orange { color: @background-color-warning }
+    &.green { color: @background-color-success }
+  }
 }

@@ -1,6 +1,7 @@
 {Range,View} = require 'atom'
 
 coverage = require './coverage-lcov'
+PanelView = require './panel'
 
 CMD_TOGGLE = 'lcov-info:toggle'
 EVT_SWITCH = 'pane-container:active-pane-item-changed'
@@ -12,6 +13,8 @@ module.exports =
 class LcovInfoView extends View
   @content: -> @div ''
 
+  serialize: ->
+
   initialize: (serializeState) ->
     console.log 'LcovInfoView: Initializing'
 
@@ -19,10 +22,14 @@ class LcovInfoView extends View
     atom.workspaceView.on EVT_SWITCH, => @updateEditor()
     atom.workspaceView.eachEditorView (ev) => @updateEditor(ev.getEditor())
 
-  serialize: ->
-
+    return
+    
   destroy: ->
     @detach()
+
+  toggle: ->
+    console.log 'LcovInfoView: Toggled to display =', toggled = not toggled
+    @updateEditor()
 
   updateEditor: (editor) ->
     editor or= atom.workspace.getActiveEditor()
@@ -31,14 +38,24 @@ class LcovInfoView extends View
       @updateCovInfo(editor)
     else
       @removeCovInfo(editor)
+      @removePanel()
       @removeStatus()
 
-  toggle: ->
-    console.log 'LcovInfoView: Toggled to display =', toggled = not toggled
-    @updateEditor()
+    return
 
-  removeStatus: ->
-    atom.workspaceView.statusBar?.find('.lcov-info-status').remove()
+  updatePanel: ->
+    unless @panelView
+      @panelView = new PanelView
+      @panelView.initialize()
+
+    @panelView.update(coverage.getLcov())
+    return
+
+  removePanel: ->
+    if @panelView
+      @panelView.destroy()
+    @panelView = null
+    return
 
   updateStatus: (editor) ->
     active = atom.workspace.getActiveEditor()
@@ -55,6 +72,12 @@ class LcovInfoView extends View
       </span>
     """
 
+    return
+
+  removeStatus: ->
+    atom.workspaceView.statusBar?.find('.lcov-info-status').remove()
+    return
+
   removeCovInfo: (editor) ->
     return unless editor
 
@@ -70,7 +93,7 @@ class LcovInfoView extends View
 
     @removeCovInfo(editor)
 
-    coverage editor.buffer.file.path, (cover) =>
+    coverage.getCoverage editor.buffer.file.path, (cover) =>
       return unless cover
 
       hltype = atom.config.get('lcov-info.highlightType') or 'line'
@@ -83,4 +106,9 @@ class LcovInfoView extends View
         editors[editor.id].decorations.push decoration
 
       editors[editor.id].coverage = cover.coverage
+
       @updateStatus(editor)
+      @updatePanel()
+
+      return
+    return
