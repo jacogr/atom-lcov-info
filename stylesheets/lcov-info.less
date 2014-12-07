@@ -4,15 +4,27 @@
 // for a full listing of what's available.
 @import "ui-variables";
 
+@lcov-col-green: rgba(0, 255, 0, 0.2);
+@lcov-bdr-green: rgba(0, 255, 0, 0.8);
+@lcov-bar-green: rgba(0, 255, 0, 0.5);
+
+@lcov-col-red: rgba(255, 0, 0, 0.2);
+@lcov-bdr-red: rgba(255, 0, 0, 0.8);
+@lcov-bar-red: rgba(255, 0, 0, 0.5);
+
+@lcov-col-orange: rgba(255, 153, 0, 0.2);
+@lcov-bdr-orange: rgba(255, 153, 0, 0.8);
+@lcov-bar-orange: rgba(255, 153, 0, 0.5);
+
 .lcov-info-no-coverage {
-  background: rgba(255, 0, 0, 0.2);
-  border: 1px solid rgba(255,0,0,0.8);
+  background: @lcov-col-red;
+  border: 1px solid @lcov-bdr-red;
   border-radius: 1px;
 }
 
 .lcov-info-has-coverage {
-  background: rgba(0, 255, 0, 0.2);
-  border: 1px solid rgba(0,255,0,0.8);
+  background: @lcov-col-green;
+  border: 1px solid @lcov-bdr-green;
   border-radius: 1px;
 }
 
@@ -82,7 +94,7 @@
     }
 
     tbody {
-      max-height: 140px;
+      max-height: 160px;
       overflow-x: hidden;
       overflow-y: auto;
 
@@ -103,9 +115,9 @@
   progress {
     width: 100%;
 
-    &.green::-webkit-progress-value { background-color: @background-color-success }
-    &.red::-webkit-progress-value { background-color: @background-color-error }
-    &.orange::-webkit-progress-value { background-color: @background-color-warning }
+    &.green::-webkit-progress-value { background-color: @lcov-bar-green; border: 1px solid @lcov-bdr-green }
+    &.red::-webkit-progress-value { background-color: @lcov-bar-red; border: 1px solid @lcov-bdr-red }
+    &.orange::-webkit-progress-value { background-color: @lcov-bar-orange; border: 1px solid @lcov-bdr-orange }
   }
 }
 
