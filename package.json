@@ -13,6 +13,7 @@
     "atom": ">0.50.0"
   },
   "dependencies": {
-    "lcov-parse": "0.0.8"
+    "lcov-parse": "0.0.8",
+    "tablesort": "^2.0.1"
   }
 }

@@ -1,6 +1,7 @@
 {Range,View} = require 'atom'
 
 coverage = require './coverage-lcov'
+PanelView = require './panel'
 
 CMD_TOGGLE = 'lcov-info:toggle'
 EVT_SWITCH = 'pane-container:active-pane-item-changed'
@@ -12,6 +13,8 @@ module.exports =
 class LcovInfoView extends View
   @content: -> @div ''
 
+  serialize: ->
+
   initialize: (serializeState) ->
     console.log 'LcovInfoView: Initializing'
 
@@ -19,26 +22,33 @@ class LcovInfoView extends View
     atom.workspaceView.on EVT_SWITCH, => @updateEditor()
     atom.workspaceView.eachEditorView (ev) => @updateEditor(ev.getEditor())
 
-  serialize: ->
-
   destroy: ->
     @detach()
+
+  toggle: ->
+    console.log 'LcovInfoView: Toggled to display =', toggled = not toggled
+    @updateEditor()
 
   updateEditor: (editor) ->
     editor or= atom.workspace.getActiveEditor()
 
     if toggled
       @updateCovInfo(editor)
+      @updatePanel()
     else
       @removeCovInfo(editor)
+      @removePanel()
       @removeStatus()
 
-  toggle: ->
-    console.log 'LcovInfoView: Toggled to display =', toggled = not toggled
-    @updateEditor()
+  updatePanel: ->
+    unless @panelView
+      @panelView = new PanelView
+      @panelView.initialize()
 
-  removeStatus: ->
-    atom.workspaceView.statusBar?.find('.lcov-info-status').remove()
+  removePanel: ->
+    if @panelView
+      @panelView.destroy()
+      @panelView = null
 
   updateStatus: (editor) ->
     active = atom.workspace.getActiveEditor()
@@ -54,6 +64,9 @@ class LcovInfoView extends View
         #{editors[editor.id].coverage.toFixed(2)}%
       </span>
     """
+
+  removeStatus: ->
+    atom.workspaceView.statusBar?.find('.lcov-info-status').remove()
 
   removeCovInfo: (editor) ->
     return unless editor

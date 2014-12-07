@@ -1,3 +1,8 @@
+## 0.8.0
+
+- Add overlay panel that shows the full project coverage information
+- Project overview mangled beyond recognition from [https://github.com/philipgiuliani/coverage/](https://github.com/philipgiuliani/coverage/)
+
 ## 0.7.0
 
 - Only parse `coverage/lcov.info` once unless the file has changed on-disk
