@@ -22,6 +22,8 @@ class LcovInfoView extends View
     atom.workspaceView.on EVT_SWITCH, => @updateEditor()
     atom.workspaceView.eachEditorView (ev) => @updateEditor(ev.getEditor())
 
+    return
+    
   destroy: ->
     @detach()
 
@@ -34,21 +36,26 @@ class LcovInfoView extends View
 
     if toggled
       @updateCovInfo(editor)
-      @updatePanel()
     else
       @removeCovInfo(editor)
       @removePanel()
       @removeStatus()
+
+    return
 
   updatePanel: ->
     unless @panelView
       @panelView = new PanelView
       @panelView.initialize()
 
+    @panelView.update(coverage.getLcov())
+    return
+
   removePanel: ->
     if @panelView
       @panelView.destroy()
-      @panelView = null
+    @panelView = null
+    return
 
   updateStatus: (editor) ->
     active = atom.workspace.getActiveEditor()
@@ -65,8 +72,11 @@ class LcovInfoView extends View
       </span>
     """
 
+    return
+
   removeStatus: ->
     atom.workspaceView.statusBar?.find('.lcov-info-status').remove()
+    return
 
   removeCovInfo: (editor) ->
     return unless editor
@@ -83,7 +93,7 @@ class LcovInfoView extends View
 
     @removeCovInfo(editor)
 
-    coverage editor.buffer.file.path, (cover) =>
+    coverage.getCoverage editor.buffer.file.path, (cover) =>
       return unless cover
 
       hltype = atom.config.get('lcov-info.highlightType') or 'line'
@@ -96,4 +106,9 @@ class LcovInfoView extends View
         editors[editor.id].decorations.push decoration
 
       editors[editor.id].coverage = cover.coverage
+
       @updateStatus(editor)
+      @updatePanel()
+
+      return
+    return
