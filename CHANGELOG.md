@@ -1,3 +1,9 @@
+## 0.8.1
+
+- Update of the first screenshot, the first time-conversion didn't take
+
+... ummm, nothing much to do there, but screenshots being correct are important ...
+
 ## 0.8.0
 
 - Add overlay panel that shows the full project coverage information
