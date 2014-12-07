@@ -16,7 +16,7 @@ class LcovInfoView extends View
     console.log 'LcovInfoView: Initializing'
 
     atom.workspaceView.command CMD_TOGGLE, => @toggle()
-    atom.workspaceView.on EVT_SWITCH, => @updateStatus()
+    atom.workspaceView.on EVT_SWITCH, => @updateEditor()
     atom.workspaceView.eachEditorView (ev) => @updateEditor(ev.getEditor())
 
   serialize: ->
@@ -25,6 +25,8 @@ class LcovInfoView extends View
     @detach()
 
   updateEditor: (editor) ->
+    editor or= atom.workspace.getActiveEditor()
+
     if toggled
       @updateCovInfo(editor)
     else
@@ -33,7 +35,7 @@ class LcovInfoView extends View
 
   toggle: ->
     console.log 'LcovInfoView: Toggled to display =', toggled = not toggled
-    @updateEditor(atom.workspace.getActiveEditor())
+    @updateEditor()
 
   removeStatus: ->
     atom.workspaceView.statusBar?.find('.lcov-info-status').remove()
