@@ -1,14 +1,12 @@
 class PanelRow extends HTMLElement
   initialize: (type, file) ->
-    columns = []
-
     colTitle = @createColumn()
     colTitleIcon = document.createElement("span")
-    if type is "directory"
+    if type is 'directory'
       colTitleIcon.classList.add("icon", "icon-file-directory")
       colTitleIcon.textContent = "Project"
     else
-      filePath = atom.project.relativize(file.filename)
+      filePath = atom.project.relativize(file.name)
 
       colTitleIcon.classList.add("icon", "icon-file-text")
       colTitleIcon.dataset.name = filePath
@@ -16,25 +14,25 @@ class PanelRow extends HTMLElement
       colTitleIcon.addEventListener "click", @openFile.bind(this, filePath)
 
     colTitle.appendChild(colTitleIcon)
-    columns.push colTitle
+    @appendChild(colTitle)
 
     colProgress = @createColumn()
-    colProgress.dataset.sort = file.covered_percent
+    colProgress.dataset.sort = file.coverage
     progressBar = document.createElement("progress")
     progressBar.max = 100
-    progressBar.value = file.covered_percent
-    progressBar.classList.add @coverageColor(file.covered_percent)
+    progressBar.value = file.coverage
+    progressBar.classList.add @coverageColor(file.coverage)
     colProgress.appendChild(progressBar)
-    columns.push colProgress
+    @appendChild(colProgress)
 
-    columns.push @createColumn("#{Number(file.covered_percent.toFixed(2))}%")
+    @appendChild(@createColumn("#{Number(file.coverage.toFixed(2))}%"))
+    @appendChild(@createColumn("#{file.covered} / #{file.total}"))
 
-    totalLines = if type is "directory" then file.total_lines else file.lines_of_code
-    columns.push @createColumn("#{file.covered_lines} / #{totalLines}")
 
-    #columns.push @createColumn(Number(file.covered_strength.toFixed(2)))
+    console.log strength = file.hit / file.total
+    @appendChild(@createColumn(Number(strength.toFixed(2))))
 
-    @appendChild(column) for column in columns
+    return
 
   createColumn: (content = null) ->
     col = document.createElement("td")
@@ -42,10 +40,10 @@ class PanelRow extends HTMLElement
     return col
 
   coverageColor: (coverage) ->
-    switch
-      when coverage >= 90 then "green"
-      when coverage >= 80 then "orange"
-      else "red"
+    return switch
+      when coverage >= 90 then 'green'
+      when coverage >= 75 then 'orange'
+      else 'red'
 
   openFile: (filePath) ->
     atom.workspaceView.open(filePath, true)

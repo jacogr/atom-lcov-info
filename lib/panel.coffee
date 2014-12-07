@@ -23,7 +23,7 @@ class PanelView extends HTMLElement
     rowHead.appendChild @createColumn("Coverage")
     rowHead.appendChild @createColumn("Percent")
     rowHead.appendChild @createColumn("Lines", { sort: false })
-    #rowHead.appendChild @createColumn("Strength")
+    rowHead.appendChild @createColumn("Strength")
 
     @tableBody = document.createElement("tbody")
     table.appendChild(@tableBody)
@@ -38,16 +38,21 @@ class PanelView extends HTMLElement
     col.classList.add("no-sort") if data.hasOwnProperty("sort") && data.sort == false
     return col
 
-  update: (project, files) ->
+  update: (data) ->
+    return unless data
+
+    if @mtime
+      return if @mtime is data.mtime
+
+    @mtime = data.mtime
     @tableBody.innerHTML = ""
 
-    if project
-      projectRow = new TableRow
-      projectRow.initialize("directory", project)
-      projectRow.classList.add("no-sort")
-      @tableBody.appendChild(projectRow)
+    projectRow = new PanelRow
+    projectRow.initialize("directory", data)
+    projectRow.classList.add("no-sort")
+    @tableBody.appendChild(projectRow)
 
-    for file in files
+    for file in data.files
       tableRow = new PanelRow
       tableRow.initialize("file", file)
       @tableBody.appendChild(tableRow)
