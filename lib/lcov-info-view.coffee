@@ -71,10 +71,13 @@ class LcovInfoView extends View
     coverage editor.buffer.file.path, (cover) =>
       return unless cover
 
+      hltype = atom.config.get('lcov-info.highlightType') or 'line'
+      editors[editor.id].hltype = hltype
+      
       for line in cover.lines
         marker = editor.markBufferRange(line.range, invalidate: 'touch')
         decoration = editor.decorateMarker marker,
-          class: line.klass, type: 'line'#'gutter'
+          class: line.klass, type: hltype
         editors[editor.id].decorations.push decoration
 
       editors[editor.id].coverage = cover.coverage
