@@ -3,29 +3,29 @@ Tablesort = require 'tablesort'
 
 class PanelView extends HTMLElement
   initialize: ->
-    @classList.add("lcov-info-panel", "tool-panel", "panel-bottom")
+    @classList.add('lcov-info-panel', 'tool-panel', 'panel-bottom')
 
-    panelBody = document.createElement("div")
-    panelBody.classList.add("panel-body")
+    panelBody = document.createElement('div')
+    panelBody.classList.add('panel-body')
     @appendChild(panelBody)
 
-    table = document.createElement("table")
+    table = document.createElement('table')
     panelBody.appendChild(table)
 
-    tableHead = document.createElement("thead")
-    tableHead.classList.add("panel-heading")
+    tableHead = document.createElement('thead')
+    tableHead.classList.add('panel-heading')
     table.appendChild(tableHead)
 
-    rowHead = document.createElement("tr")
+    rowHead = document.createElement('tr')
     tableHead.appendChild(rowHead)
 
-    rowHead.appendChild @createColumn("Test Coverage")
-    rowHead.appendChild @createColumn("Coverage")
-    rowHead.appendChild @createColumn("Percent")
-    rowHead.appendChild @createColumn("Lines", { sort: false })
-    rowHead.appendChild @createColumn("Strength")
+    rowHead.appendChild @createColumn('Test Coverage')
+    rowHead.appendChild @createColumn('Coverage')
+    rowHead.appendChild @createColumn('Percent')
+    rowHead.appendChild @createColumn('Lines', { sort: false })
+    rowHead.appendChild @createColumn('Strength')
 
-    @tableBody = document.createElement("tbody")
+    @tableBody = document.createElement('tbody')
     table.appendChild(@tableBody)
 
     @tablesort = new Tablesort(table)
@@ -33,9 +33,9 @@ class PanelView extends HTMLElement
     return
 
   createColumn: (title, data={}) ->
-    col = document.createElement("th")
+    col = document.createElement('th')
     col.innerHTML = title
-    col.classList.add("no-sort") if data.hasOwnProperty("sort") && data.sort == false
+    col.classList.add('no-sort') if data.hasOwnProperty('sort') && data.sort == false
     return col
 
   update: (data) ->
@@ -45,16 +45,16 @@ class PanelView extends HTMLElement
       return if @mtime is data.mtime
 
     @mtime = data.mtime
-    @tableBody.innerHTML = ""
+    @tableBody.innerHTML = ''
 
     projectRow = new PanelRow
-    projectRow.initialize("directory", data)
-    projectRow.classList.add("no-sort")
+    projectRow.initialize('directory', data)
+    projectRow.classList.add('no-sort')
     @tableBody.appendChild(projectRow)
 
     for file in data.files
       tableRow = new PanelRow
-      tableRow.initialize("file", file)
+      tableRow.initialize('file', file)
       @tableBody.appendChild(tableRow)
 
     @tablesort.refresh()
