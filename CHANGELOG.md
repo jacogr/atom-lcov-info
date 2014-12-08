@@ -1,27 +1,28 @@
-## 0.8.4
+## 0.8
+### 0.8.4
 
 - Load styles in the context of the text-editor, which allow for use with the shadow DOM (while not breaking "old/current mode")
 - Welcome side-effect of using in the atom-text-editor context is that the current highlighted line still displays the decoration
 
 ... preparing for the future ...
 
-## 0.8.3
+### 0.8.3
 
 - Always show the project info overview when found, even when specific file doesn't have coverage
 
 ... small fixes for more usability ...
 
-## 0.8.2
+### 0.8.2
 
 ... no change, muck-up in release, branch not merged - becomes 0.8.3 ...
 
-## 0.8.1
+### 0.8.1
 
 - Update of the first screenshot, the first time-conversion didn't take
 
 ... ummm, nothing much to do there, but screenshots being correct are important ...
 
-## 0.8.0
+### 0.8.0
 
 - Add overlay panel that shows the full project coverage information
 - Project overview panel mangled beyond recognition from [https://github.com/philipgiuliani/coverage/](https://github.com/philipgiuliani/coverage/)
@@ -29,7 +30,9 @@
 
 ... not prefect, but getting closer to a local at-the-moment view of the brilliant [coveralls.io](https://coveralls.io) ...
 
-## 0.7.0
+
+## 0.7
+### 0.7.0
 
 - Only parse `coverage/lcov.info` once unless the file has changed on-disk
 - Calculate global file coverage information (paves the way for future overall stats)
@@ -40,7 +43,9 @@
 
 ... making progress, getting more robust ...
 
-## 0.6.0
+
+## 0.6
+### 0.6.0
 
 - Split all the lcov.info handling into [lib/coverage-lcov.coffee](lib/coverage-lcov.coffee), keeping [lib/lcov-info-view.coffee](lcov-info-view.coffee) to deal with what it does best - managing the view
 - Add link to the actual Atom package in [README.md](README.md), available via [https://atom.io/packages/lcov-info](https://atom.io/packages/lcov-info)
@@ -49,13 +54,15 @@
 
 ... now it really does become much easier to test, pondering how to extract coverage info to eat own dogfood on this specific project (not the other unrelated ones that lead to this plugin) ...
 
-## 0.5.1
+
+## 0.5
+### 0.5.1
 
 - Typo resulted in incorrect handling (error thrown) when the path started with `./` in the `lcon.info` file
 
 ... getting back to the flippant test coverage comment on this project ...
 
-## 0.5.0
+### 0.5.0
 
 - Initial version & first Atom package registry entry
 - Mangled beyond recognition using [https://github.com/benjamine/highlight-cov](https://github.com/benjamine/highlight-cov) as a starting point
