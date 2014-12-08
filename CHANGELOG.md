@@ -1,3 +1,10 @@
+## 0.8.4
+
+- Load styles in the context of the text-editor, which allow for use with the shadow DOM (while not breaking "old/current mode")
+- Welcome side-effect of using in the atom-text-editor context is that the current highlighted line still displays the decoration
+
+... preparing for the future ...
+
 ## 0.8.3
 
 - Always show the project info overview when found, even when specific file doesn't have coverage

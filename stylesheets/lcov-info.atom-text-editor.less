@@ -1,0 +1,30 @@
+// https://github.com/atom/decoration-example/blob/master/stylesheets/decoration-example.atom-text-editor.less
+@import "lcov-info-vars";
+
+.editor.editor-colors .gutter .line-number {
+  &.lcov-info-no-coverage {
+    background: @lcov-col-red;
+    border: 1px solid @lcov-bdr-red;
+    border-radius: 1px;
+  }
+
+  &.lcov-info-has-coverage {
+    background: @lcov-col-green;
+    border: 1px solid @lcov-bdr-green;
+    border-radius: 1px;
+  }
+}
+
+.line {
+  &.lcov-info-no-coverage {
+    background: @lcov-col-red;
+    border: 1px solid @lcov-bdr-red;
+    border-radius: 1px;
+  }
+
+  &.lcov-info-has-coverage {
+    background: @lcov-col-green;
+    border: 1px solid @lcov-bdr-green;
+    border-radius: 1px;
+  }
+}
