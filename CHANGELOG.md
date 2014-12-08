@@ -1,3 +1,9 @@
+## 0.8.2
+
+- Always show the project info overview when found, even when specific file doesn't have coverage
+
+... small fixes for more usability ...
+
 ## 0.8.1
 
 - Update of the first screenshot, the first time-conversion didn't take

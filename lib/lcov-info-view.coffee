@@ -23,7 +23,7 @@ class LcovInfoView extends View
     atom.workspaceView.eachEditorView (ev) => @updateEditor(ev.getEditor())
 
     return
-    
+
   destroy: ->
     @detach()
 
@@ -36,6 +36,7 @@ class LcovInfoView extends View
 
     if toggled
       @updateCovInfo(editor)
+
     else
       @removeCovInfo(editor)
       @removePanel()
@@ -43,17 +44,18 @@ class LcovInfoView extends View
 
     return
 
-  updatePanel: ->
+  updatePanel: (lcovData) ->
     unless @panelView
       @panelView = new PanelView
       @panelView.initialize()
 
-    @panelView.update(coverage.getLcov())
+    @panelView.update(lcovData)
     return
 
   removePanel: ->
     if @panelView
       @panelView.destroy()
+
     @panelView = null
     return
 
@@ -86,6 +88,7 @@ class LcovInfoView extends View
       decoration.destroy()
 
     editors[editor.id].decorations = []
+    return
 
   updateCovInfo: (editor) ->
     return unless toggled
@@ -93,7 +96,11 @@ class LcovInfoView extends View
 
     @removeCovInfo(editor)
 
-    coverage.getCoverage editor.buffer.file.path, (cover) =>
+    coverage editor.buffer.file.path, (lcovData, cover) =>
+      return unless lcovData
+
+      @updatePanel(lcovData)
+
       return unless cover
 
       hltype = atom.config.get('lcov-info.highlightType') or 'line'
@@ -106,9 +113,7 @@ class LcovInfoView extends View
         editors[editor.id].decorations.push decoration
 
       editors[editor.id].coverage = cover.coverage
-
       @updateStatus(editor)
-      @updatePanel()
 
       return
     return
