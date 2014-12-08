@@ -3,7 +3,6 @@ parse = require 'lcov-parse'
 path = require 'path'
 
 cache = {}
-lcovData = null
 
 splitPath = (filePath) ->
   return filePath.replace(/\\/g, '/').split('/')
@@ -90,15 +89,15 @@ matchPath = (fp, lp) ->
 
   return true
 
-mapInfo = (filePath, data, cb) ->
+mapInfo = (filePath, lcovData, cb) ->
   fileParts = splitPath filePath
 
-  for fileInfo in data.files
+  for fileInfo in lcovData.files
     if matchPath(fileParts, fileInfo.parts)
-      return cb(fileInfo)
+      return cb(lcovData, fileInfo)
 
   console.log 'LcovInfoView: No coverage info found for', filePath
-  return cb()
+  return cb(lcovData)
 
 getCoverage = (filePath, cb) ->
   unless infoFile = findInfoFile(filePath)
@@ -117,10 +116,4 @@ getCoverage = (filePath, cb) ->
 
   return
 
-getLcov = ->
-  console.log lcovData
-  return lcovData
-
-module.exports =
-  getCoverage: getCoverage
-  getLcov: getLcov
+module.exports = getCoverage
