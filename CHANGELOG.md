@@ -1,8 +1,12 @@
-## 0.8.2
+## 0.8.3
 
 - Always show the project info overview when found, even when specific file doesn't have coverage
 
 ... small fixes for more usability ...
+
+## 0.8.2
+
+... no change, muck-up in release, branch not merged - becomes 0.8.3 ...
 
 ## 0.8.1
 
