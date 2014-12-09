@@ -23,7 +23,7 @@ class PanelView extends HTMLElement
     rowHead.appendChild @createColumn('Coverage')
     rowHead.appendChild @createColumn('Percent')
     rowHead.appendChild @createColumn('Lines', { sort: false })
-    rowHead.appendChild @createColumn('Strength')
+    rowHead.appendChild @createColumn('Hits/Line')
 
     @tableBody = document.createElement('tbody')
     table.appendChild(@tableBody)
@@ -35,7 +35,8 @@ class PanelView extends HTMLElement
   createColumn: (title, data={}) ->
     col = document.createElement('th')
     col.innerHTML = title
-    col.classList.add('no-sort') if data.hasOwnProperty('sort') && data.sort == false
+    if data.hasOwnProperty('sort') and not data.sort
+      col.classList.add('no-sort')
     return col
 
   update: (data) ->
@@ -52,7 +53,7 @@ class PanelView extends HTMLElement
     projectRow.classList.add('no-sort')
     @tableBody.appendChild(projectRow)
 
-    for file in data.files
+    for fielName, file of data.files
       tableRow = new PanelRow
       tableRow.initialize('file', file)
       @tableBody.appendChild(tableRow)
