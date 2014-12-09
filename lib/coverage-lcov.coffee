@@ -25,34 +25,29 @@ setCache = (lcovPath, data) ->
     files.push fdata =
       name: fileInfo.file
       parts: splitPath(fileInfo.file)
-      lines: []
-
-    ftotal = 0
-    fcovered = 0
-    fhit = 0
+      lines: {}
 
     for detail in fileInfo.lines.details
-      ftotal++
+      unless fdata.lines[detail.line]
+        fdata.total++
+        total++
 
-      fdata.lines.push line =
-        no: detail.line
-        hit: detail.hit
+      fdata.lines[detail.line] or=
+        hit: 0
+        klass: 'lcov-info-no-coverage'
         range: [[detail.line - 1, 0], [detail.line - 1, 0]]
+      line = fdata.lines[detail.line]
 
-      line.klass = 'lcov-info-no-coverage'
-      if line.hit > 0
+      if detail.hit > 0
         line.klass = 'lcov-info-has-coverage'
-        fcovered++
-        fhit += line.hit
+        unless line.hit
+          fdata.covered++
+          covered++
+        line.hit += detail.hit
+        fdata.hit += detail.hit
+        hit += detail.hit
 
-      fdata.total = ftotal
-      fdata.covered = fcovered
-
-    fdata.coverage = (if ftotal then fcovered/ftotal else 0)*100
-    fdata.hit = fhit
-    total += ftotal
-    covered += fcovered
-    hit += fhit
+    fdata.coverage = (if fdata.total then fdata.covered/fdata.total else 0)*100
 
   cov = (if total then covered/total else 0) * 100
   console.log 'LcovInfoView:', "#{cov.toFixed(2)}% over #{files.length} files"
