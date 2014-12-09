@@ -7,6 +7,12 @@ cache = {}
 splitPath = (filePath) ->
   return filePath.replace(/\\/g, '/').split('/')
 
+santizePath = (filePath) ->
+  rel = atom.project.relativize(filePath)
+  parts = splitPath(rel).filter (p) ->
+    return p unless (p is '.') or (p is '')
+  return parts.join('/')
+
 getCache = (lcovPath) ->
   if data = cache[lcovPath]
     mtime = fs.statSync(lcovPath).mtime.getTime()
@@ -19,13 +25,14 @@ setCache = (lcovPath, data) ->
   total = 0
   covered = 0
   hit = 0
-  files = []
+  files = {}
 
   for fileInfo in data
-    files.push fdata =
-      name: fileInfo.file
-      parts: splitPath(fileInfo.file)
+    name = sanitizePath(fileInfo.file)
+    files[name] or=
+      name: name
       lines: {}
+    fdata = files[name]
 
     for detail in fileInfo.lines.details
       unless fdata.lines[detail.line]
@@ -34,6 +41,7 @@ setCache = (lcovPath, data) ->
 
       fdata.lines[detail.line] or=
         hit: 0
+        no: detail.line
         klass: 'lcov-info-no-coverage'
         range: [[detail.line - 1, 0], [detail.line - 1, 0]]
       line = fdata.lines[detail.line]
@@ -74,22 +82,10 @@ findInfoFile = (filePath) ->
   console.log 'LcovInfoView: No coverage/lcov.info file found for', filePath
   return
 
-matchPath = (fp, lp) ->
-  return unless lp.length <= fp.length
-
-  for i in [1..lp.length] by 1
-    unless i is 0 and lp[0] is '.'
-      if lp[lp.length - i] isnt fp[fp.length - i]
-        return false
-
-  return true
-
 mapInfo = (filePath, lcovData, cb) ->
-  fileParts = splitPath filePath
-
-  for fileInfo in lcovData.files
-    if matchPath(fileParts, fileInfo.parts)
-      return cb(lcovData, fileInfo)
+  rel = atom.project.relativize(filePath)
+  for name, fileInfo of lcovData.files when name is rel
+    return cb(lcovData, fileInfo)
 
   console.log 'LcovInfoView: No coverage info found for', filePath
   return cb(lcovData)
