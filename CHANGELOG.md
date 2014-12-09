@@ -1,4 +1,12 @@
-## 0.8
+## Releases
+
+### 0.9.0
+
+- Allow the for the existence of duplicate lines as well as files in the `coverage/lcov.info` file, combining the data, hits and relevancy
+- Local coverage map is not almost on-par (at least from a calculation perspextive) with [coveralls.io](https://coveralls.io)
+
+... statistics, statistics, damn lies and statistics ...
+
 ### 0.8.4
 
 - Load styles in the context of the text-editor, which allow for use with the shadow DOM (while not breaking "old/current mode")
@@ -31,7 +39,6 @@
 ... not prefect, but getting closer to a local at-the-moment view of the brilliant [coveralls.io](https://coveralls.io) ...
 
 
-## 0.7
 ### 0.7.0
 
 - Only parse `coverage/lcov.info` once unless the file has changed on-disk
@@ -44,7 +51,6 @@
 ... making progress, getting more robust ...
 
 
-## 0.6
 ### 0.6.0
 
 - Split all the lcov.info handling into [lib/coverage-lcov.coffee](lib/coverage-lcov.coffee), keeping [lib/lcov-info-view.coffee](lcov-info-view.coffee) to deal with what it does best - managing the view
@@ -55,7 +61,6 @@
 ... now it really does become much easier to test, pondering how to extract coverage info to eat own dogfood on this specific project (not the other unrelated ones that lead to this plugin) ...
 
 
-## 0.5
 ### 0.5.1
 
 - Typo resulted in incorrect handling (error thrown) when the path started with `./` in the `lcon.info` file
