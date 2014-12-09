@@ -5,6 +5,7 @@
 - Style update to be both less obtrusive, yet more visible.
 - Gutter now has a little dot display, immediate visibility in addition to highlight.
 - Gutter always displays, only line highlights can be switched off.
+- Screenshots updated to reflect the new styling.
 
 ... prettier, but as they say, beauty is in the eye of the beer holder ...
 
