@@ -6,6 +6,7 @@
 - Line 0 should not be included, now it is ignored
 - Local coverage map is not almost on-par (at least from a calculation perspective) with [coveralls.io](https://coveralls.io)
 - Styles now fully adapted to use the shadow DOM, no conversion on the Atom side
+- Be explicit in project overview, the previous 'Strength' is the 'Hits/Line'
 
 ... statistics, statistics, damn lies and statistics ...
 

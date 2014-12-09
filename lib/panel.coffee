@@ -23,7 +23,7 @@ class PanelView extends HTMLElement
     rowHead.appendChild @createColumn('Coverage')
     rowHead.appendChild @createColumn('Percent')
     rowHead.appendChild @createColumn('Lines', { sort: false })
-    rowHead.appendChild @createColumn('Strength')
+    rowHead.appendChild @createColumn('Hits/Line')
 
     @tableBody = document.createElement('tbody')
     table.appendChild(@tableBody)
