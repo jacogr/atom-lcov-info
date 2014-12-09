@@ -5,14 +5,43 @@
   .gutter .line-number {
     &.lcov-info-no-coverage {
       background: @lcov-col-red;
-      border: 1px solid @lcov-bdr-red;
+      //border: 1px solid @lcov-bdr-red;
       border-radius: 1px;
+      position:relative;
+
+      &::after {
+        content: " ";
+        display: block;
+        width: 10px;
+        height: 10px;
+        background: @lcov-bdr-red;
+        border-radius: 5px;
+        position: absolute;
+        vertical-align: middle;
+        top: 50%;
+        right: 2px;
+        margin-top: -5px;
+      }
     }
 
     &.lcov-info-has-coverage {
       background: @lcov-col-green;
-      border: 1px solid @lcov-bdr-green;
+      //border: 1px solid @lcov-bdr-green;
       border-radius: 1px;
+
+      &::after {
+        content: " ";
+        display: block;
+        width: 10px;
+        height: 10px;
+        background: @lcov-bdr-green;
+        border-radius: 5px;
+        position: absolute;
+        vertical-align: middle;
+        top: 50%;
+        right: 2px;
+        margin-top: -5px;
+      }
     }
   }
 }
@@ -20,13 +49,13 @@
 .line {
   &.lcov-info-no-coverage {
     background: @lcov-col-red;
-    border: 1px solid @lcov-bdr-red;
+    //border: 1px solid @lcov-bdr-red;
     border-radius: 1px;
   }
 
   &.lcov-info-has-coverage {
     background: @lcov-col-green;
-    border: 1px solid @lcov-bdr-green;
+    //border: 1px solid @lcov-bdr-green;
     border-radius: 1px;
   }
 }
