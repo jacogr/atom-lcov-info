@@ -1,5 +1,14 @@
 ## Releases
 
+### 0.9.1
+
+- Style update to be both less obtrusive, yet more visible.
+- Gutter now has a little dot display, immediate visibility in addition to highlight.
+- Gutter always displays, only line highlights can be switched off.
+- Screenshots updated to reflect the new styling.
+
+... prettier, but as they say, beauty is in the eye of the beer holder ...
+
 ### 0.9.0
 
 - Allow the for the existence of duplicate lines as well as files in the `coverage/lcov.info` file, combining the data, hits and relevancy

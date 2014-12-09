@@ -108,9 +108,11 @@ class LcovInfoView extends View
 
       for lineno, line of cover.lines
         marker = editor.markBufferRange(line.range, invalidate: 'touch')
-        decoration = editor.decorateMarker marker,
-          class: line.klass, type: hltype
-        editors[editor.id].decorations.push decoration
+        editors[editor.id].decorations.push editor.decorateMarker marker,
+          class: line.klass, type: 'gutter'
+        if hltype is 'line'
+          editors[editor.id].decorations.push editor.decorateMarker marker,
+            class: line.klass, type: 'line'
 
       editors[editor.id].coverage = cover.coverage
       @updateStatus(editor)
