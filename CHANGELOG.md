@@ -3,6 +3,7 @@
 ### 0.9.0
 
 - Allow the for the existence of duplicate lines as well as files in the `coverage/lcov.info` file, combining the data, hits and relevancy
+- Line 0 should not be included, now it is ignored
 - Local coverage map is not almost on-par (at least from a calculation perspextive) with [coveralls.io](https://coveralls.io)
 
 ... statistics, statistics, damn lies and statistics ...

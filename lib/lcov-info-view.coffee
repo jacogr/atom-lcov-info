@@ -106,7 +106,7 @@ class LcovInfoView extends View
       hltype = atom.config.get('lcov-info.highlightType') or 'line'
       editors[editor.id].hltype = hltype
 
-      for line in cover.lines
+      for lineno, line of cover.lines
         marker = editor.markBufferRange(line.range, invalidate: 'touch')
         decoration = editor.decorateMarker marker,
           class: line.klass, type: hltype
