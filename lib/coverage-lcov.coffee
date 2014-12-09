@@ -91,8 +91,6 @@ mapInfo = (filePath, lcovData, cb) ->
   for name, fileInfo of lcovData.files
     if name.length <= rel.length
       if rel.substring(rel.length - name.length) is name
-        console.log fileInfo
-        console.log Object.keys(fileInfo.lines).length, Object.keys(fileInfo.lines)
         return cb(lcovData, fileInfo)
 
   console.log 'LcovInfoView: No coverage info found for', filePath
