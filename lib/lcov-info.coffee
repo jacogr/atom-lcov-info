@@ -8,6 +8,12 @@ module.exports =
       type: 'string'
       default: 'line'
       enum: ['line', 'gutter']
+    coveredType:
+      title: 'Coverage Display'
+      description: 'Display applies to everything or uncovered lines only'
+      type: 'string'
+      default: 'Covered & Uncovered Lines'
+      enum: ['Covered & Uncovered Lines', 'Uncovered Lines Only']
 
   lcovInfoView: null
 

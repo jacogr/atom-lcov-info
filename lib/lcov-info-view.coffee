@@ -68,8 +68,13 @@ class LcovInfoView extends View
     return unless active and editor.id is active.id
     return unless toggled and editors[editor.id]
 
+    color = switch
+      when editors[editor.id].coverage >= 90 then 'green'
+      when editors[editor.id].coverage >= 75 then 'orange'
+      else 'red'
+
     atom.workspaceView.statusBar?.appendLeft """
-      <span class='lcov-info-status'>
+      <span class='lcov-info-status #{color}'>
         #{editors[editor.id].coverage.toFixed(2)}%
       </span>
     """
@@ -103,16 +108,17 @@ class LcovInfoView extends View
 
       return unless cover
 
-      hltype = atom.config.get('lcov-info.highlightType') or 'line'
-      editors[editor.id].hltype = hltype
+      displayAll = atom.config.get('lcov-info.coveredType') isnt 'Uncovered Lines Only'
+      lineType = atom.config.get('lcov-info.highlightType') isnt 'gutter'
 
       for lineno, line of cover.lines
-        marker = editor.markBufferRange(line.range, invalidate: 'touch')
-        editors[editor.id].decorations.push editor.decorateMarker marker,
-          class: line.klass, type: 'gutter'
-        if hltype is 'line'
+        if displayAll or line.hit is 0
+          marker = editor.markBufferRange(line.range, invalidate: 'touch')
           editors[editor.id].decorations.push editor.decorateMarker marker,
-            class: line.klass, type: 'line'
+            class: line.klass, type: 'gutter'
+          if lineType
+            editors[editor.id].decorations.push editor.decorateMarker marker,
+              class: line.klass, type: 'line'
 
       editors[editor.id].coverage = cover.coverage
       @updateStatus(editor)
