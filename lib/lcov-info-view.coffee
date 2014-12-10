@@ -68,8 +68,13 @@ class LcovInfoView extends View
     return unless active and editor.id is active.id
     return unless toggled and editors[editor.id]
 
+    color = switch
+      when editors[editor.id].coverage >= 90 then 'green'
+      when editors[editor.id].coverage >= 75 then 'orange'
+      else 'red'
+
     atom.workspaceView.statusBar?.appendLeft """
-      <span class='lcov-info-status'>
+      <span class='lcov-info-status #{color}'>
         #{editors[editor.id].coverage.toFixed(2)}%
       </span>
     """
