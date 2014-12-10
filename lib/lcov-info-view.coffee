@@ -103,16 +103,17 @@ class LcovInfoView extends View
 
       return unless cover
 
-      hltype = atom.config.get('lcov-info.highlightType') or 'line'
-      editors[editor.id].hltype = hltype
+      displayAll = atom.config.get('lcov-info.coveredType') isnt 'Uncovered Lines Only'
+      lineType = atom.config.get('lcov-info.highlightType') isnt 'gutter'
 
       for lineno, line of cover.lines
-        marker = editor.markBufferRange(line.range, invalidate: 'touch')
-        editors[editor.id].decorations.push editor.decorateMarker marker,
-          class: line.klass, type: 'gutter'
-        if hltype is 'line'
+        if displayAll or line.hit is 0
+          marker = editor.markBufferRange(line.range, invalidate: 'touch')
           editors[editor.id].decorations.push editor.decorateMarker marker,
-            class: line.klass, type: 'line'
+            class: line.klass, type: 'gutter'
+          if lineType
+            editors[editor.id].decorations.push editor.decorateMarker marker,
+              class: line.klass, type: 'line'
 
       editors[editor.id].coverage = cover.coverage
       @updateStatus(editor)
