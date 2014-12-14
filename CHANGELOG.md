@@ -2,7 +2,7 @@
 
 ### 0.9.2
 
-- Allow styles to reflect 'highlight all' or 'hihlight non-covered'
+- Allow styles to reflect 'highlight all' or 'highlight non-covered'
 - Display status bar coverage in relevant colors, red < 75 <= orange < 90 <= green
 
 ... basic styles to allow drilling in on what is really needed ...
