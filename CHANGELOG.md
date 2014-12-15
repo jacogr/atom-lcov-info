@@ -82,7 +82,7 @@
 
 ### 0.5.1
 
-- Typo resulted in incorrect handling (error thrown) when the path started with `./` in the `lcon.info` file
+- Typo resulted in incorrect handling (i.e. error thrown) when the path started with `./` in the `lcon.info` file
 
 ... getting back to the flippant test coverage comment on this project ...
 
