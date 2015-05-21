@@ -116,7 +116,7 @@ class LcovInfoView extends View
         if displayAll or line.hit is 0
           marker = editor.markBufferRange(line.range, invalidate: 'touch')
           editors[editor.id].decorations.push editor.decorateMarker marker,
-            class: line.klass, type: 'gutter'
+            class: line.klass, type: 'line-number'
           if lineType
             editors[editor.id].decorations.push editor.decorateMarker marker,
               class: line.klass, type: 'line'
