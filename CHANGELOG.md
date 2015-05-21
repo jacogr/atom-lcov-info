@@ -1,5 +1,11 @@
 ## Releases
 
+### 0.10.2
+
+- Fix stylesheet deprecations
+
+... current deprecation cop warnings
+
 ### 0.10.1
 
 - Update patch, previous publish was minor, not patch
