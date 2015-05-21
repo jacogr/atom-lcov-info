@@ -1,5 +1,12 @@
 ## Releases
 
+### 0.9.3
+
+- Move styles from stylesheets/ to styles/ (Atom 1.0)
+- Use View from 'atom-space-pen-views' instead of 'atom' (Atom 1.0)
+
+... fix some Atom 1.0 deprecations
+
 ### 0.9.2
 
 - Allow styles to reflect 'highlight all' or 'highlight non-covered'

@@ -1,4 +1,5 @@
-{Range,View} = require 'atom'
+{Range} = require 'atom'
+{View} = require 'atom-space-pen-views'
 
 coverage = require './coverage-lcov'
 PanelView = require './panel'
