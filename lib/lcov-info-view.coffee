@@ -1,5 +1,5 @@
 {Range} = require 'atom'
-{View} = require 'atom-space-pen-views'
+{View, $} = require 'atom-space-pen-views'
 
 coverage = require './coverage-lcov'
 PanelView = require './panel'
@@ -19,9 +19,9 @@ class LcovInfoView extends View
   initialize: (serializeState) ->
     console.log 'LcovInfoView: Initializing'
 
-    atom.workspaceView.command CMD_TOGGLE, => @toggle()
-    atom.workspaceView.on EVT_SWITCH, => @updateEditor()
-    atom.workspaceView.eachEditorView (ev) => @updateEditor(ev.getEditor())
+    atom.commands.add 'atom-workspace', CMD_TOGGLE, => @toggle()
+    atom.workspace.onDidChangeActivePaneItem (item) => @updateEditor()
+    atom.workspace.onDidAddTextEditor (ev) => @updateEditor(ev.getEditor())
 
     return
 
@@ -33,7 +33,7 @@ class LcovInfoView extends View
     @updateEditor()
 
   updateEditor: (editor) ->
-    editor or= atom.workspace.getActiveEditor()
+    editor or= atom.workspace.getActiveTextEditor()
 
     if toggled
       @updateCovInfo(editor)
@@ -61,7 +61,7 @@ class LcovInfoView extends View
     return
 
   updateStatus: (editor) ->
-    active = atom.workspace.getActiveEditor()
+    active = atom.workspace.getActiveTextEditor()
     editor = active unless editor
 
     @removeStatus()
@@ -74,16 +74,16 @@ class LcovInfoView extends View
       when editors[editor.id].coverage >= 75 then 'orange'
       else 'red'
 
-    atom.workspaceView.statusBar?.appendLeft """
-      <span class='lcov-info-status #{color}'>
+    $('status-bar .status-bar-left').prepend """
+      <div class='inline-block lcov-info-status #{color}'>
         #{editors[editor.id].coverage.toFixed(2)}%
-      </span>
+      </div>
     """
 
     return
 
   removeStatus: ->
-    atom.workspaceView.statusBar?.find('.lcov-info-status').remove()
+    $('status-bar .lcov-info-status').remove()
     return
 
   removeCovInfo: (editor) ->

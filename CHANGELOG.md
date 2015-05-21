@@ -1,5 +1,15 @@
 ## Releases
 
+### 0.10.3
+
+- WorkSpace:addBottomPanel() instead of WorkSpaceView.prependToBottom()
+- $('status-bar') to retrieve statusbar
+- atom.workspace.getActiveTextEditor() instead of atom.workspace.getActiveEditor()
+- atom.workspace.open instead of atom.workspaceView.open
+- toggle & switch for atom workspace updated
+
+... Atom 1.0 depcrecated APIs
+
 ### 0.10.2
 
 - Fix stylesheet deprecations

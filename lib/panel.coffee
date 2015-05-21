@@ -29,7 +29,7 @@ class PanelView extends HTMLElement
     table.appendChild(@tableBody)
 
     @tablesort = new Tablesort(table)
-    atom.workspaceView.prependToBottom(this)
+    atom.workspace.addBottomPanel(item: this)
     return
 
   createColumn: (title, data={}) ->

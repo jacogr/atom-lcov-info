@@ -2,7 +2,7 @@ class PanelRow extends HTMLElement
   initialize: (type, file) ->
     colTitle = @createColumn()
     colTitleIcon = document.createElement('span')
-    
+
     if type is 'directory'
       colTitleIcon.classList.add('icon', 'icon-file-directory')
       colTitleIcon.textContent = 'Project'
@@ -45,6 +45,6 @@ class PanelRow extends HTMLElement
       else 'red'
 
   openFile: (filePath) ->
-    atom.workspaceView.open(filePath, true)
+    atom.workspace.open(filePath, true)
 
 module.exports = document.registerElement('coverage-table-row', prototype: PanelRow.prototype, extends: 'tr')
