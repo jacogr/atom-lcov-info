@@ -1,6 +1,12 @@
 ## Releases
 
-### 0.9.3
+### 0.10.1
+
+- Update patch, previous publish was minor, not patch
+
+... sync up
+
+### 0.10.0
 
 - Move styles from stylesheets/ to styles/ (Atom 1.0)
 - Use View from 'atom-space-pen-views' instead of 'atom' (Atom 1.0)
