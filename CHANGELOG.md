@@ -1,5 +1,9 @@
 ## Releases
 
+### 0.10.4
+
+- Find lcov.info in both coverage and .coverage directories (fixes [#15](https://github.com/jacogr/atom-lcov-info/issues/15))
+
 ### 0.10.3
 
 - WorkSpace:addBottomPanel() instead of WorkSpaceView.prependToBottom()

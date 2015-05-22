@@ -74,12 +74,16 @@ setCache = (lcovPath, data) ->
     mtime: fs.statSync(lcovPath).mtime.getTime()
 
 findInfoFile = (filePath) ->
-  while filePath and filePath isnt path.dirname(filePath)
-    filename = path.join(filePath, 'coverage', 'lcov.info')
-
+  testInfo = (fp, coverageDir) ->
+    filename = path.join(fp, coverageDir, 'lcov.info')
     if fs.existsSync(filename)
       console.log('LcovInfoView: Using info at', filename)
       return filename
+    return null
+
+  while filePath and filePath isnt path.dirname(filePath)
+    filename = testInfo(filePath, 'coverage') or testInfo(filePath, '.coverage')
+    return filename if filename
 
     filePath = path.dirname(filePath)
 
