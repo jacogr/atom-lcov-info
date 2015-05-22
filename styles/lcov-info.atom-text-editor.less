@@ -2,45 +2,36 @@
 @import "lcov-info-vars";
 
 .atom-text-editor, :host {
-  .gutter .line-number {
+  .line-number {
     &.lcov-info-no-coverage {
-      background: @lcov-col-red;
-      //border: 1px solid @lcov-bdr-red;
-      border-radius: 1px;
-      position:relative;
-
       &::after {
         content: " ";
         display: block;
-        width: 10px;
-        height: 10px;
+        width: 6px;
+        height: 6px;
         background: @lcov-bdr-red;
-        border-radius: 5px;
+        border-radius: 3px;
         position: absolute;
         vertical-align: middle;
         top: 50%;
-        right: 2px;
-        margin-top: -5px;
+        right: 9px;
+        margin-top: -3px;
       }
     }
 
     &.lcov-info-has-coverage {
-      background: @lcov-col-green;
-      //border: 1px solid @lcov-bdr-green;
-      border-radius: 1px;
-
       &::after {
         content: " ";
         display: block;
-        width: 10px;
-        height: 10px;
+        width: 6px;
+        height: 6px;
         background: @lcov-bdr-green;
-        border-radius: 5px;
+        border-radius: 3px;
         position: absolute;
         vertical-align: middle;
         top: 50%;
-        right: 2px;
-        margin-top: -5px;
+        right: 9px;
+        margin-top: -3px;
       }
     }
   }
@@ -49,13 +40,11 @@
 .line {
   &.lcov-info-no-coverage {
     background: @lcov-col-red;
-    //border: 1px solid @lcov-bdr-red;
     border-radius: 1px;
   }
 
   &.lcov-info-has-coverage {
     background: @lcov-col-green;
-    //border: 1px solid @lcov-bdr-green;
     border-radius: 1px;
   }
 }

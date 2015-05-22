@@ -3,6 +3,8 @@
 ### 0.10.4
 
 - Find lcov.info in both coverage and .coverage directories (fixes [#15](https://github.com/jacogr/atom-lcov-info/issues/15))
+- Style now refers to .line-number instead of .gutter (Atom 1.0)
+- Move coverage dot in gutter to left & make smaller (fixes [#16](https://github.com/jacogr/atom-lcov-info/issues/16)) 
 
 ### 0.10.3
 
