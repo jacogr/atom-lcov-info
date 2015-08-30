@@ -21,7 +21,7 @@ class LcovInfoView extends View
 
     atom.commands.add 'atom-workspace', CMD_TOGGLE, => @toggle()
     atom.workspace.onDidChangeActivePaneItem (item) => @updateEditor()
-    atom.workspace.onDidAddTextEditor (ev) => @updateEditor(ev.getEditor())
+    atom.workspace.onDidAddTextEditor (ev) => @updateEditor(ev.testEditor)
 
     return
 
