@@ -47,4 +47,4 @@ class PanelRow extends HTMLElement
   openFile: (filePath) ->
     atom.workspace.open(filePath, true)
 
-module.exports = document.registerElement('coverage-table-row', prototype: PanelRow.prototype, extends: 'tr')
+module.exports = document.registerElement('lcov-info-table-row', prototype: PanelRow.prototype, extends: 'tr')
