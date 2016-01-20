@@ -65,4 +65,4 @@ class PanelView extends HTMLElement
     @remove() if @parentNode
     return
 
-module.exports = document.registerElement('coverage-panel-view', prototype: PanelView.prototype, extends: 'div')
+module.exports = document.registerElement('lcov-info-panel-view', prototype: PanelView.prototype, extends: 'div')
