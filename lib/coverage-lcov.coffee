@@ -91,7 +91,7 @@ findInfoFile = (filePath) ->
   return
 
 mapInfo = (filePath, lcovData, cb) ->
-  rel = atom.project.relativize(filePath)
+  rel = sanitizePath(atom.project.relativize(filePath))
   for name, fileInfo of lcovData.files
     if name.length <= rel.length
       if rel.substring(rel.length - name.length) is name
