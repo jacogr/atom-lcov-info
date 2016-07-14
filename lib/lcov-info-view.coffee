@@ -35,13 +35,10 @@ class LcovInfoView extends View
   updateEditor: (editor) ->
     editor or= atom.workspace.getActiveTextEditor()
 
-    if toggled
-      @updateCovInfo(editor)
+    @updateCovInfo(editor)
 
-    else
-      @removeCovInfo(editor)
+    if !toggled
       @removePanel()
-      @removeStatus()
 
     return
 
@@ -97,7 +94,6 @@ class LcovInfoView extends View
     return
 
   updateCovInfo: (editor) ->
-    return unless toggled
     return unless editor and editor.decorateMarker and editor.buffer.file
 
     @removeCovInfo(editor)
