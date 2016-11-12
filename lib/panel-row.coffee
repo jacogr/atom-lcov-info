@@ -1,4 +1,4 @@
-class PanelRow extends HTMLElement
+class PanelRow extends HTMLTableRowElement
   initialize: (type, file) ->
     colTitle = @createColumn()
     colTitleIcon = document.createElement('span')
