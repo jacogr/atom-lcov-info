@@ -17,7 +17,7 @@
 
     tr {
       width: 100%;
-
+      display: block;
       &::after {
         content: " ";
         display: block;
@@ -27,8 +27,9 @@
     }
 
     th, td {
+      display: block;
+      float: left;
       width: 10%;
-
       &:nth-child(1) { width: 50% }
       &:nth-child(2) { width: 20% }
     }
@@ -95,7 +96,7 @@
 
 .lcov-info-status {
   cursor: pointer;
-  
+
   &.red { color: @background-color-error }
   &.orange { color: @background-color-warning }
   &.green { color: @background-color-success }
