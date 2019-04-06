@@ -11,6 +11,7 @@
     width: 100%;
 
     thead, tbody {
+
       width: 100%;
       display: block;
     }
@@ -29,8 +30,8 @@
     th, td {
       width: 10%;
 
-      &:nth-child(1) { width: 50% }
-      &:nth-child(2) { width: 20% }
+      &:nth-child(1) { width: 30% }
+      &:nth-child(2) { width: 10% }
     }
 
     thead {
@@ -66,7 +67,7 @@
     }
 
     tbody {
-      max-height: 160px;
+      max-height: 90vh;
       overflow-x: hidden;
       overflow-y: auto;
 
@@ -95,7 +96,7 @@
 
 .lcov-info-status {
   cursor: pointer;
-  
+
   &.red { color: @background-color-error }
   &.orange { color: @background-color-warning }
   &.green { color: @background-color-success }

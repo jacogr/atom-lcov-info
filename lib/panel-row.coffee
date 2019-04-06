@@ -1,6 +1,6 @@
-class PanelRow extends HTMLElement
+class PanelRow extends HTMLTableRowElement
   initialize: (type, file) ->
-    colTitle = @createColumn()
+    colTitle = @insertCell()
     colTitleIcon = document.createElement('span')
 
     if type is 'directory'
@@ -14,27 +14,29 @@ class PanelRow extends HTMLElement
       colTitleIcon.addEventListener 'click', @openFile.bind(this, filePath)
 
     colTitle.appendChild(colTitleIcon)
-    @appendChild(colTitle)
 
-    colProgress = @createColumn()
+    colProgress = @insertCell()
     colProgress.dataset.sort = file.coverage
     progressBar = document.createElement('progress')
     progressBar.max = 100
-    progressBar.value = file.coverage
+    if file.coverage >= 0 and file.coverage <= 100
+      progressBar.value = file.coverage
+    else
+      progressBar.value = 1
+      colProgress.dataset.sort = 1
     progressBar.classList.add @coverageColor(file.coverage)
     colProgress.appendChild(progressBar)
-    @appendChild(colProgress)
 
-    @appendChild(@createColumn("#{Number(file.coverage.toFixed(2))}%"))
-    @appendChild(@createColumn("#{file.covered} / #{file.total}"))
+    (@createColumn("#{Number(file.coverage.toFixed(2))}"))
+    (@createColumn("#{file.covered} / #{file.total}"))
 
     strength = file.hit / file.total
-    @appendChild(@createColumn(Number(strength.toFixed(2))))
+    (@createColumn(Number(strength.toFixed(2))))
 
     return
 
   createColumn: (content = null) ->
-    col = document.createElement('td')
+    col = @insertCell()
     col.innerHTML = content
     return col
 

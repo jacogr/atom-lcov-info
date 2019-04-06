@@ -15,6 +15,6 @@
   "dependencies": {
     "atom-space-pen-views": "^2.0.3",
     "lcov-parse": "0.0.8",
-    "tablesort": "^2.0.1"
+    "tablesort": "^5.0.1"
   }
 }
