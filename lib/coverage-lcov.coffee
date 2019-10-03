@@ -59,7 +59,7 @@ setCache = (lcovPath, data) ->
         fdata.hit += detail.hit
         hit += detail.hit
 
-    fdata.coverage = (if fdata.total then fdata.covered/fdata.total else 0)*100
+    fdata.coverage = (if fileInfo.lines.found then fdata.covered/(fileInfo.lines.found) else 1)*100
 
   cov = (if total then covered/total else 0) * 100
   console.log 'LcovInfoView:', "#{cov.toFixed(2)}% over #{Object.keys(files).length} files"
